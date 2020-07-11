@@ -4,6 +4,11 @@
 package com.dannyB.model;
 
 import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import java.io.Serializable;
 import java.util.HashSet;
 
@@ -14,18 +19,20 @@ import java.util.HashSet;
  * Description:
  *
  */
+@Entity
+@Table(name="Department")
 public abstract class Department implements Serializable {
 	
 	private static final long serialVersionUID = -6431775210848340538L;
+	private @Id String DEP_ID;
 	private String depName;
-	private String depHead; // employee id of the department head. 0 if not given
-	private String DEP_ID; //id of the department. see method depBuilder for 
+	private String depHead;
 	
 	private Set<String> emp_IDSet = new HashSet<String>();
 	
 	/**
-	 * @param depName:
-	 * @param depHead
+	 * @param depName: id of the department. see method depBuilder for details
+	 * @param depHead employee id of the department head. 0 if not given
 	 */
 	public Department(String depName, String depHead) {
 		buildDep(depName,depHead);

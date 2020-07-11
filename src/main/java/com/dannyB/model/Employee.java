@@ -5,6 +5,10 @@ package com.dannyB.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * @author Dan Birmingham >> dgbirm@gmail.com
  * Start Date: May 8, 2020
@@ -12,12 +16,14 @@ import java.io.Serializable;
  * Description: Class to store  and manage information about an employee in the EMS
  *
  */
+@Entity
+@Table(name="Employee")
 public class Employee implements Serializable{
 	
 	private static final long serialVersionUID = 4498346644792345109L;
 	//Employee parameters
+	private @Id String EMP_ID; //would make this final if didnt cause issues with building later
 	private String fullName;
-	private String EMP_ID; //would make this final if didnt cause issues with building later
 	private Department dep;
 	private double yearlySalary;
 	private String jobTitle;  //do I want to make title ENUMS at some point?
@@ -93,6 +99,56 @@ public class Employee implements Serializable{
 		return "Employee [fullName=" + fullName + ", EMP_ID=" + EMP_ID + ", dep=" + dep + ", jobTitle=" + jobTitle
 				+ "]";
 	}
+	
+	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((EMP_ID == null) ? 0 : EMP_ID.hashCode());
+		result = prime * result + ((dep == null) ? 0 : dep.hashCode());
+		result = prime * result + ((fullName == null) ? 0 : fullName.hashCode());
+		result = prime * result + ((jobTitle == null) ? 0 : jobTitle.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(yearlySalary);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Employee other = (Employee) obj;
+		if (EMP_ID == null) {
+			if (other.EMP_ID != null)
+				return false;
+		} else if (!EMP_ID.equals(other.EMP_ID))
+			return false;
+		if (dep == null) {
+			if (other.dep != null)
+				return false;
+		} else if (!dep.equals(other.dep))
+			return false;
+		if (fullName == null) {
+			if (other.fullName != null)
+				return false;
+		} else if (!fullName.equals(other.fullName))
+			return false;
+		if (jobTitle == null) {
+			if (other.jobTitle != null)
+				return false;
+		} else if (!jobTitle.equals(other.jobTitle))
+			return false;
+		if (Double.doubleToLongBits(yearlySalary) != Double.doubleToLongBits(other.yearlySalary))
+			return false;
+		return true;
+	}
 
 	//Getters and Setters
 	public String getFullName() {
@@ -126,6 +182,5 @@ public class Employee implements Serializable{
 	public String getEmpID() {
 		return EMP_ID;
 	}
-	
-	
+
 }

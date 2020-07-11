@@ -5,7 +5,8 @@ package com.dannyB.model;
  * @author Dan Birmingham >> dgbirm@gmail.com
  * Start Date: May 11, 2020
  * Last Updated: 
- * Description: Runner class to do some prelim testing
+ * Description: Runner class to do some prelim testing showing the implementation
+ * of the offline model
  *
  */
 public class EMSRunner {
@@ -38,7 +39,7 @@ public class EMSRunner {
 		System.out.println(EMS.getEmployeeMap().toString().replaceAll("(Title=[A-Za-z ]+],)" , "$1\n")+"\n"); //make output pretty
 		
 		//Remove an employee Rich
-		System.out.println("Expect output rb1: " + EMS.getDepartmentMap().get("LEADERSHIP").getEmp_IDSet()); //expected rb1
+		System.out.println("Expect output [rb1]: " + EMS.getDepartmentMap().get("LEADERSHIP").getEmp_IDSet()); //expected rb1
 		EMS.removeEmployee("rb1");
 		System.out.println("Expect empty set output: " + EMS.getDepartmentMap().get("LEADERSHIP").getEmp_IDSet()); //expected []
 		System.out.println("\n");

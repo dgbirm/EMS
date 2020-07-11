@@ -17,7 +17,8 @@ import java.util.HashMap;
  * Start Date: May 8, 2020
  * Last Updated: May 21, 2020
  * 
- * Description: Employee Management System (EMS) designed for easy management of company employees. 
+ * Description: Employee Management System (EMS) designed for easy management of company employees.
+ * Demonstrates use of employee management system before h2 db implementation.
  *
  */
 
@@ -32,9 +33,14 @@ public final class EMS {
 	//ems department map
 	private static volatile Map<String, Department> departmentIDMap = new HashMap<String, Department>();
 	
+	private static final String COMPANY_NAME = "Washington Red Tails";
+	private static final String EMAIL_SUFFIX;
+			
+	
 	static {
 		//add unassigned department to departmentIDMap during instantiation
 		new Unassigned();
+		EMAIL_SUFFIX = String.format("@%s.com", COMPANY_NAME.replaceAll("[\s']", "").toLowerCase());
 	}
 
 	//get, add, remove helper wrapper functions for emp and dep maps
