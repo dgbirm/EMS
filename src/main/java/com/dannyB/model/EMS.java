@@ -10,6 +10,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Paths;
 import java.util.Map;
+
+import org.springframework.stereotype.Component;
+
 import java.util.HashMap;
 
 /**
@@ -23,8 +26,8 @@ import java.util.HashMap;
  */
 
 //TODO: truncate lines to 80 characters in length and finish class descriptions
-//TODO:JUnit testing
 
+@Component
 public final class EMS {
 	
 	//ems employee map
