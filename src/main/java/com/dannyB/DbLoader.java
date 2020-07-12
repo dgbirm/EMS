@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import com.dannyB.model.Department;
+import com.dannyB.model.Employee;
+import com.dannyB.model.Leadership;
 import com.dannyB.repo.DepartmentRepository;
 import com.dannyB.repo.EmployeeRepository;
 
@@ -17,6 +20,8 @@ import com.dannyB.repo.EmployeeRepository;
  * Description:
  *
  */
+
+
 
 @Component
 public class DbLoader implements CommandLineRunner {
@@ -32,7 +37,11 @@ public class DbLoader implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
+		Department leadership = new Leadership();
+		Employee Rich = new Employee("Rich Bowers", leadership, "Director");
 		
+		this.empRepo.save(Rich);
+		this.depRepo.save(leadership);
 	}
 
 }

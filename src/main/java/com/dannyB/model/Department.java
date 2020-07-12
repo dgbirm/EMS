@@ -11,6 +11,7 @@ import javax.persistence.Table;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 
 /**
  * @author Dan Birmingham >> dgbirm@gmail.com
@@ -20,7 +21,7 @@ import java.util.HashSet;
  *
  */
 @Entity
-@Table(name="Department")
+@Table(name="department")
 public abstract class Department implements Serializable {
 	
 	private static final long serialVersionUID = -6431775210848340538L;
@@ -87,6 +88,22 @@ public abstract class Department implements Serializable {
 
 	//Getters and Setters
 	
+	@Override
+	public int hashCode() {
+		return Objects.hash(DEP_ID, depHead, depName, emp_IDSet);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Department other = (Department) obj;
+		return Objects.equals(DEP_ID, other.DEP_ID) && Objects.equals(depHead, other.depHead)
+				&& Objects.equals(depName, other.depName) && Objects.equals(emp_IDSet, other.emp_IDSet);
+	}
 	/**
 	 * @return the emp_IDSet
 	 */

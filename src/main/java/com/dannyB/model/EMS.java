@@ -27,7 +27,6 @@ import java.util.HashMap;
 
 //TODO: truncate lines to 80 characters in length and finish class descriptions
 
-@Component
 public final class EMS {
 	
 	//ems employee map

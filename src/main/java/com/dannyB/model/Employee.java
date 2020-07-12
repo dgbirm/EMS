@@ -4,6 +4,7 @@
 package com.dannyB.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,7 +18,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="Employee")
+@Table(name="employee")
 public class Employee implements Serializable{
 	
 	private static final long serialVersionUID = 4498346644792345109L;
@@ -92,8 +93,6 @@ public class Employee implements Serializable{
 		this.dep.addToEmpIdSet(this.EMP_ID);
 	}
 	
-	
-	
 	@Override
 	public String toString() {
 		return "Employee [fullName=" + fullName + ", EMP_ID=" + EMP_ID + ", dep=" + dep + ", jobTitle=" + jobTitle
@@ -104,16 +103,7 @@ public class Employee implements Serializable{
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((EMP_ID == null) ? 0 : EMP_ID.hashCode());
-		result = prime * result + ((dep == null) ? 0 : dep.hashCode());
-		result = prime * result + ((fullName == null) ? 0 : fullName.hashCode());
-		result = prime * result + ((jobTitle == null) ? 0 : jobTitle.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(yearlySalary);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		return result;
+		return Objects.hash(EMP_ID, dep, fullName, jobTitle, yearlySalary);
 	}
 
 	@Override
@@ -125,29 +115,9 @@ public class Employee implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Employee other = (Employee) obj;
-		if (EMP_ID == null) {
-			if (other.EMP_ID != null)
-				return false;
-		} else if (!EMP_ID.equals(other.EMP_ID))
-			return false;
-		if (dep == null) {
-			if (other.dep != null)
-				return false;
-		} else if (!dep.equals(other.dep))
-			return false;
-		if (fullName == null) {
-			if (other.fullName != null)
-				return false;
-		} else if (!fullName.equals(other.fullName))
-			return false;
-		if (jobTitle == null) {
-			if (other.jobTitle != null)
-				return false;
-		} else if (!jobTitle.equals(other.jobTitle))
-			return false;
-		if (Double.doubleToLongBits(yearlySalary) != Double.doubleToLongBits(other.yearlySalary))
-			return false;
-		return true;
+		return Objects.equals(EMP_ID, other.EMP_ID) && Objects.equals(dep, other.dep)
+				&& Objects.equals(fullName, other.fullName) && Objects.equals(jobTitle, other.jobTitle)
+				&& Double.doubleToLongBits(yearlySalary) == Double.doubleToLongBits(other.yearlySalary);
 	}
 
 	//Getters and Setters
