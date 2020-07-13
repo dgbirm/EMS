@@ -1,7 +1,9 @@
 /**
  * 
  */
-package com.dannyB.model;
+package com.dannyB.EMS.model;
+
+import javax.persistence.Entity;
 
 /**
  * @author Dan Birmingham >> dgbirm@gmail.com
@@ -10,6 +12,8 @@ package com.dannyB.model;
  * Description:
  *
  */
+
+@Entity
 public class Sales extends Department {
 
 	private static final long serialVersionUID = 4990761532182024838L;

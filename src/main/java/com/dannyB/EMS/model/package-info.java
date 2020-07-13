@@ -8,4 +8,4 @@
  * Description:
  *
  */
-package com.dannyB.model;
+package com.dannyB.EMS.model;

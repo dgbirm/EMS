@@ -1,5 +1,5 @@
 
-package com.dannyB.model;
+package com.dannyB.EMS.model;
 
 /**
  * @author Dan Birmingham >> dgbirm@gmail.com
@@ -19,9 +19,9 @@ public class EMSRunner {
 		Department leadership = new Leadership();
 		Department sales = new Sales();
 		
-		Employee Rich = new Employee("Rich Bowers", leadership, "Director");
-		Employee Charlie = new Employee("Charles Dunn", randD, "TA");
-		Employee Paula = new Employee("Paula Marchis", sales);
+		Employee Rich = new Employee("Rich Bowers", leadership.getDEP_ID(), "Director");
+		Employee Charlie = new Employee("Charles Dunn", randD.getDEP_ID(), "TA");
+		Employee Paula = new Employee("Paula Marchis", sales.getDEP_ID());
 		Employee Dan = new Employee("Daniel G Birmingham");
 		Employee Joe = new Employee("Joe Is Exotic");
 		Employee RB = new Employee("R B");

@@ -1,11 +1,11 @@
-package com.dannyB.repo;
+package com.dannyB.EMS.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-import com.dannyB.model.Employee;
+import com.dannyB.EMS.model.Department;
 
 @RepositoryRestResource
-public interface EmployeeRepository extends JpaRepository<Employee, String> {
+public interface DepartmentRepository extends JpaRepository<Department, String> {
 	
 }

@@ -1,13 +1,16 @@
 /**
  * 
  */
-package com.dannyB.model;
+package com.dannyB.EMS.model;
 
 import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -21,6 +24,7 @@ import java.util.Objects;
  *
  */
 @Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @Table(name="department")
 public abstract class Department implements Serializable {
 	
@@ -29,6 +33,7 @@ public abstract class Department implements Serializable {
 	private String depName;
 	private String depHead;
 	
+	@Transient
 	private Set<String> emp_IDSet = new HashSet<String>();
 	
 	/**
@@ -40,6 +45,12 @@ public abstract class Department implements Serializable {
 	}
 	public Department(String depName) {
 		buildDep(depName,"NONE");
+	}
+	
+	public Department() {
+		this.DEP_ID = null;
+		this.depName = null;
+		this.depHead = null;
 	}
 	
 	//helper function used in class construction
@@ -137,5 +148,17 @@ public abstract class Department implements Serializable {
 	 */
 	public void setDepHead(String depHead) {
 		this.depHead = depHead;
+	}
+	/**
+	 * @return the dEP_ID
+	 */
+	public synchronized String getDEP_ID() {
+		return DEP_ID;
+	}
+	/**
+	 * @param dEP_ID the dEP_ID to set
+	 */
+	public synchronized void setDEP_ID(String dEP_ID) {
+		DEP_ID = dEP_ID;
 	}
 }

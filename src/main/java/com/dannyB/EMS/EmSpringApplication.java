@@ -1,4 +1,4 @@
-package com.dannyB;
+package com.dannyB.EMS;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

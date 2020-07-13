@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.dannyB.model;
+package com.dannyB.EMS.model;
 
 /**
  * @author Dan Birmingham >> dgbirm@gmail.com

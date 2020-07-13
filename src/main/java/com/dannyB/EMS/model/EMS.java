@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.dannyB.model;
+package com.dannyB.EMS.model;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -65,7 +65,8 @@ public final class EMS {
 	 * @param EMP_ID: employee id for employee to be removed from employeeIDMap
 	 */
 	protected static synchronized void removeEmployee(String EMP_ID) {
-		EMS.employeeIDMap.get(EMP_ID).getDep().removeFromEmpIdSet(EMP_ID); //remove employee from department id set
+		EMS.departmentIDMap.get(EMS.employeeIDMap.get(EMP_ID)
+				.getDep()).removeFromEmpIdSet(EMP_ID); //remove employee from department id set
 		EMS.employeeIDMap.remove(EMP_ID);
 		
 	}

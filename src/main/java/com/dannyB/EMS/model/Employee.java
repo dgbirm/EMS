@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.dannyB.model;
+package com.dannyB.EMS.model;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -25,34 +25,42 @@ public class Employee implements Serializable{
 	//Employee parameters
 	private @Id String EMP_ID; //would make this final if didnt cause issues with building later
 	private String fullName;
-	private Department dep;
+	private String dep;
 	private double yearlySalary;
-	private String jobTitle;  //do I want to make title ENUMS at some point?
+	private String jobTitle;  
 	
 	/**
 	 * @param fullName: full name of this employee
-	 * @param dep: department this employee is in. Unassigned if not specified
+	 * @param dep: department id this employee is in. Unassigned if not specified
 	 * @param yearlySalary annual salary of this employee. 0.0 if specified
 	 * @param jobTitle specific job title for this employee. "Not yet assigned" if not specified
 	 */
-	public Employee(String fullName, Department dep, String jobTitle, double yearlySalary) {
+	public Employee(String fullName, String dep, String jobTitle, double yearlySalary) {
 		buildEmp(fullName,dep,jobTitle,yearlySalary);
 	}
 	
-	public Employee(String fullName, Department dep, String jobTitle) {
+	public Employee(String fullName, String dep, String jobTitle) {
 		buildEmp(fullName,dep,jobTitle,0.0);
 	}
 	
-	public Employee(String fullName, Department dep) {
+	public Employee(String fullName, String dep) {
 		buildEmp(fullName,dep,"Not Yet Assigned",0.0);
 	}
 	
 	public Employee(String fullName) {
-		buildEmp(fullName, EMS.getDepartmentMap().get("UNASSIGNED"),"Not Yet Assigned",0.0);
+		buildEmp(fullName, "UNASSIGNED","Not Yet Assigned",0.0);
+	}
+	
+	public Employee() {
+		this.fullName = null;
+		this.dep = null;
+		this.jobTitle = null;
+		this.yearlySalary = 0.0;
+		this.EMP_ID = null;
 	}
 	
 	//TODO: sanitize name and Dep input
-	private void buildEmp(String fullName, Department dep, String jobTitle, double yearlySalary) {
+	private void buildEmp(String fullName, String dep, String jobTitle, double yearlySalary) {
 		this.fullName = fullName;
 		this.dep = dep;
 		this.jobTitle = jobTitle;
@@ -90,7 +98,7 @@ public class Employee implements Serializable{
 	}
 	
 	private void addEmployeeToDepSet() {
-		this.dep.addToEmpIdSet(this.EMP_ID);
+		EMS.getDepartmentMap().get(this.dep).addToEmpIdSet(this.EMP_ID);
 	}
 	
 	@Override
@@ -125,11 +133,11 @@ public class Employee implements Serializable{
 		return fullName;
 	}
 
-	public Department getDep() {
+	public String getDep() {
 		return dep;
 	}
 
-	public void setDep(Department dep) {
+	public void setDep(String dep) {
 		this.dep = dep;
 	}
 
