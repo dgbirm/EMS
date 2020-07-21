@@ -40,8 +40,8 @@ public class DbLoader implements CommandLineRunner {
 		Department leadership = new Leadership();
 		Employee Rich = new Employee("Rich Bowers", leadership.getDEP_ID(), "Director");
 		
-		this.empRepo.save(Rich);
 		this.depRepo.save(leadership);
+		this.empRepo.save(Rich);
 	}
 
 }
