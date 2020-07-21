@@ -3,8 +3,8 @@
  */
 package com.dannyB.EMS.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author Dan Birmingham >> dgbirm@gmail.com
@@ -14,14 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
  *
  */
 
-@RestController
+@Controller
 public class EmsController {
 	
-	@RequestMapping("/") //flag index to support root
+	@RequestMapping(value = "/") //flag index to support root
 	public String index() {
 		return "index";
 	}
-	
-	
 	
 }
