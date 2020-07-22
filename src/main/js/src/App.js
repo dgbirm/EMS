@@ -1,13 +1,3 @@
-'use strict';
-
-const React = require('react');
-const ReactDOM = require('react-dom');
-const client = require('./client');
-
-ReactDOM.render(
-	<App />,
-	document.getElementById('react')
-)
 
 ///// App ///////////////////////////////////////
 class App extends React.Component {
