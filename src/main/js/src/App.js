@@ -1,4 +1,9 @@
 
+const React = require('react');
+const ReactDOM = require('react-dom');
+const client = require('./client');
+
+
 ///// App ///////////////////////////////////////
 class App extends React.Component {
 
@@ -102,3 +107,5 @@ class Department extends React.Component{
         )
     }
 }
+
+export default App;

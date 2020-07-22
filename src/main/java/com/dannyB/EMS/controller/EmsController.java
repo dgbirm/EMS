@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class EmsController {
 	
-	@RequestMapping(value = "/") //flag index to support root
-	public String index() {
-		return "index";
-	}
+//	@RequestMapping(value = "/") //flag index to support root
+//	public String index() {
+//		return "index";
+//	}
 	
 }
