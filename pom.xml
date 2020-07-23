@@ -67,14 +67,12 @@
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
 				<version>${frontend-maven-plugin.version}</version>
-
 				<configuration>
 					<nodeVersion>${node.version}</nodeVersion>
 					<yarnVersion>${yarn.version}</yarnVersion>
 					<workingDirectory>${frontend-src-dir}</workingDirectory>
 					<installDirectory>${project.build.directory}</installDirectory>
 				</configuration>
-
 				<executions>
 					<execution>
 						<id>install-frontend-tools</id>

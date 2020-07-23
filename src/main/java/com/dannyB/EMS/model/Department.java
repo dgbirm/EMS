@@ -73,9 +73,10 @@ public abstract class Department implements Serializable {
 
 	private void addDepartmentToEMSMap(String ID) throws DepAlreadyExistsException {
 		if (departmentAlreadyExists(ID)) {
-			throw new DepAlreadyExistsException(ID);
+			//throw new DepAlreadyExistsException(ID);
 		}
 		EMS.addDepartment(ID, this);
+		System.out.println(EMS.getDepartmentMap());
 	}
 	
 	/**
