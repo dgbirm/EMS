@@ -12,11 +12,14 @@ class H2Component extends React.Component {
 
 	componentDidMount() {
 		H2Service.getEmployees().then(response => {
-            this.setState({ employees: response.data});
+			this.setState({ employees: response.data})
+			.catch(function (error) {
+				console.log(error);
+			})
         });
 		H2Service.getDepartments().then((response) => {
             this.setState({ departments: response.data});
-        });
+        })
 	}
 
 	render() {
@@ -24,7 +27,7 @@ class H2Component extends React.Component {
 			<div>
 				<h1 className = "text-center">Employee List</h1>
 				<EmployeeList employees={this.state.employees}/>
-				{this.state.employees}
+				Num of emps: {this.state.employees.length}
 
 				<h1 className = "text-center">Department List</h1>
 				<DepartmentList departments={this.state.departments}/>
