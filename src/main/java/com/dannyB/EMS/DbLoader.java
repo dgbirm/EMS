@@ -26,7 +26,9 @@ import com.dannyB.EMS.repo.EmployeeRepository;
 @Component
 public class DbLoader implements CommandLineRunner {
 
+	@Autowired
 	private final EmployeeRepository empRepo;
+	@Autowired
 	private final DepartmentRepository depRepo;
 	
 	@Autowired
