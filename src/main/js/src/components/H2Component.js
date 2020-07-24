@@ -13,9 +13,6 @@ class H2Component extends React.Component {
 	componentDidMount() {
 		H2Service.getEmployees().then(response => {
 			this.setState({ employees: response.data})
-			.catch(function (error) {
-				console.log(error);
-			})
         });
 		H2Service.getDepartments().then((response) => {
             this.setState({ departments: response.data});
@@ -27,7 +24,6 @@ class H2Component extends React.Component {
 			<div>
 				<h1 className = "text-center">Employee List</h1>
 				<EmployeeList employees={this.state.employees}/>
-				Num of emps: {this.state.employees.length}
 
 				<h1 className = "text-center">Department List</h1>
 				<DepartmentList departments={this.state.departments}/>
@@ -49,11 +45,11 @@ class EmployeeList extends React.Component{
 			<table className = "table table-striped">
 				<thead>
 					<tr>
-                        <th>EMP_ID</th>
-						<th>fullName</th>
-						<th>dep</th>
-						<th>yearlySalary</th>
-                        <th>jobTitle</th>
+                        <th>ID</th>
+						<th>Full Name</th>
+						<th>Department ID</th>
+						<th>Salary</th>
+                        <th>Job Title</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -67,20 +63,20 @@ class EmployeeList extends React.Component{
 ///// DepartmentList ////////////////////////////
 class DepartmentList extends React.Component{
 	render() {
-		const departments = this.props.departments.map(department =>
-			<Department key={department._links.self.href} department={department}/>
+		const renderDepartments = this.props.departments.map(d =>
+			<Department key={d.dep_ID} department={d}/>
 		);
 		return (
-			<table>
+			<table className = "table table-striped">
 				<thead>
 					<tr>
-                        <th>DEP_ID</th>
-						<th>depName</th>
-						<th>depHead</th>
+                        <th>ID</th>
+						<th>Name</th>
+						<th>Head ID</th>
 					</tr>
 				</thead>
 				<tbody>
-					{departments}
+					{renderDepartments}
 				</tbody>
 			</table>
 		)
@@ -93,8 +89,8 @@ class Employee extends React.Component{
 	render() {
 		return (
 			<tr>
-				<td>{this.props.employee.EMP_ID}</td>
-				<td>{this.props.employee.fullname}</td>
+				<td>{this.props.employee.empID}</td>
+				<td>{this.props.employee.fullName}</td>
 				<td>{this.props.employee.dep}</td>
                 <td>{this.props.employee.yearlySalary}</td>
                 <td>{this.props.employee.jobTitle}</td>
@@ -109,7 +105,7 @@ class Department extends React.Component{
     render() {
         return (
             <tr>
-                <td>{this.props.department.DEP_ID}</td>
+                <td>{this.props.department.dep_ID}</td>
                 <td>{this.props.department.depName}</td>
                 <td>{this.props.department.depHead}</td>
             </tr>

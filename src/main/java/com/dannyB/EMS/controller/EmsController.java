@@ -3,12 +3,15 @@
  */
 package com.dannyB.EMS.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dannyB.EMS.model.Department;
 import com.dannyB.EMS.model.Employee;
 import com.dannyB.EMS.repo.DepartmentRepository;
 import com.dannyB.EMS.repo.EmployeeRepository;
@@ -17,7 +20,8 @@ import com.dannyB.EMS.repo.EmployeeRepository;
  * @author Dan Birmingham >> dgbirm@gmail.com
  * Start Date: Jul 10, 2020
  * Last Updated: 
- * Description:
+ * Description: Rest Controller. Note the importance of the CrossOrigin
+ * 				annotation to prevent CORS issues
  *
  */
 
@@ -27,7 +31,6 @@ public class EmsController {
 	
 	@Autowired
 	private EmployeeRepository empRepo;
-	
 	@Autowired
 	private DepartmentRepository depRepo;
 	
@@ -36,9 +39,14 @@ public class EmsController {
 		return "index";
 	}
 	
-	@GetMapping("/api/employees")
-	public Iterable<Employee> getUsers() {
-        return empRepo.findAll();
+	@GetMapping("api/employees")
+	public List<Employee> getEmps() {
+        return this.empRepo.findAll();
+    }
+	
+	@GetMapping("api/departments")
+	public List<Department> getDeps() {
+        return this.depRepo.findAll();
     }
 	
 }

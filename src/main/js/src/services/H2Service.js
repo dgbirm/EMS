@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const EMP_REST_API_URL = 'http://localhost:8080/api/employees/rb1';
+const EMP_REST_API_URL = 'http://localhost:8080/api/employees';
 const DEP_REST_API_URL = 'http://localhost:8080/api/departments';
 
 class H2Service {
