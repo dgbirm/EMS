@@ -6,6 +6,7 @@ package com.dannyB.EMS.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,12 +41,12 @@ public class EmsController {
 	}
 	
 	@GetMapping("api/employees")
-	public List<Employee> getEmps() {
-        return this.empRepo.findAll();
+	public Iterable<Employee> getEmps(Pageable pg) {
+        return this.empRepo.findAll(pg);
     }
 	
 	@GetMapping("api/departments")
-	public List<Department> getDeps() {
+	public Iterable<Department> getDeps() {
         return this.depRepo.findAll();
     }
 	

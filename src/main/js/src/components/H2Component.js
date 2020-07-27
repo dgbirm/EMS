@@ -1,21 +1,40 @@
 import React from 'react';
 import H2Service from '../services/H2Service';
+import ReactPaginate from 'react-paginate';
 
 class H2Component extends React.Component {
     constructor(props) {
 		super(props);
         this.state = {
             employees: [],
-            departments: []
-        };
+			departments: [],
+			offset: 0,
+			perPage: 2,
+			currentPage: 0
+		};
+		this.handlePageClick =
+		this.handlePageClick.bind(this);
 	}
 
 	componentDidMount() {
-		H2Service.getEmployees().then(response => {
-			this.setState({ employees: response.data})
-        });
+		const EmpDbName='employees';
+		const perPage= this.state.perPage;
+		const currentPage= this.state.currentPage;
+
+		H2Service.getRequest(EmpDbName, perPage, currentPage)
+		.then((response) => {
+		
+			const data = response.data;
+			// const slice = data.slice(this.state.offset,
+			// 	data.pageable.offset +this.state.perPage);
+			this.setState({
+				employees: data.content,
+				pageCount: Math.ceil(data.totalElements / this.state.perPage)
+			})
+		});
+
 		H2Service.getDepartments().then((response) => {
-            this.setState({ departments: response.data});
+        	this.setState({ departments: response.data});
         })
 	}
 
@@ -25,14 +44,41 @@ class H2Component extends React.Component {
 				<h1 className = "text-center">Employee List</h1>
 				<EmployeeList employees={this.state.employees}/>
 
-				<h1 className = "text-center">Department List</h1>
-				<DepartmentList departments={this.state.departments}/>
+				{/* <h1 className = "text-center">Department List</h1>
+				<DepartmentList departments={this.state.departments}/> */}
+
+				<ReactPaginate
+						previousLabel={'previous'}
+						nextLabel={'next'}
+						breakLabel={'...'}
+						breakClassName={'break-me'}
+						pageCount={this.state.pageCount}
+						marginPagesDisplayed={2}
+						pageRangeDisplayed={5}
+						onPageChange={this.handlePageClick}
+						containerClassName={'pagination'}
+						subContainerClassName={'pages pagination'}
+						activeClassName={'active'}
+						/>
 			</div>
 			
 		)
 	}
-}
 
+	///// handlePageClick ///////////////////////////
+	handlePageClick = (e) => {
+		const selectedPage = e.selected;
+		const offset = selectedPage * this.state.perPage;
+
+		this.setState({
+			currentPage: selectedPage,
+			offset: offset
+		}, () => {
+			this.componentDidMount()
+		});
+
+	};
+}
 
 ///// EmployeeList //////////////////////////////
 

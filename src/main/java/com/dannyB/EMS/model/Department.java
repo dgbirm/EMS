@@ -70,13 +70,15 @@ public abstract class Department implements Serializable {
 		return EMS.getDepartmentMap().containsKey(ID);
 	}
 
-
+	//TODO: Clean up this helper after testing
 	private void addDepartmentToEMSMap(String ID) throws DepAlreadyExistsException {
 		if (departmentAlreadyExists(ID)) {
 			//throw new DepAlreadyExistsException(ID);
 		}
 		EMS.addDepartment(ID, this);
-		System.out.println(EMS.getDepartmentMap());
+//		for (Department dep : EMS.getDepartmentMap().values()) {
+//			System.out.println(String.format("Department %s has employees with ids %s", dep.toString(), dep.getEmp_IDSet().toString()));
+//		}
 	}
 	
 	/**
