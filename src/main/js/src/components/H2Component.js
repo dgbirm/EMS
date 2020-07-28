@@ -1,6 +1,8 @@
 import React from 'react';
 import H2Service from '../services/H2Service';
 import ReactPaginate from 'react-paginate';
+import '../App.css';
+import { Pagination } from 'react-bootstrap';
 
 class H2Component extends React.Component {
     constructor(props) {
@@ -46,20 +48,29 @@ class H2Component extends React.Component {
 
 				{/* <h1 className = "text-center">Department List</h1>
 				<DepartmentList departments={this.state.departments}/> */}
-
-				<ReactPaginate
-						previousLabel={'previous'}
-						nextLabel={'next'}
-						breakLabel={'...'}
-						breakClassName={'break-me'}
-						pageCount={this.state.pageCount}
-						marginPagesDisplayed={2}
-						pageRangeDisplayed={5}
-						onPageChange={this.handlePageClick}
-						containerClassName={'pagination'}
-						subContainerClassName={'pages pagination'}
-						activeClassName={'active'}
-						/>
+				<ul className = "pagination">
+					<ReactPaginate
+							previousLabel={'previous'}
+							nextLabel={'next'}
+							breakLabel={'...'}
+							pageCount={this.state.pageCount}
+							marginPagesDisplayed={2}
+							pageRangeDisplayed={5}
+							onPageChange={this.handlePageClick}
+							subContainerClassName={'pages pagination'}
+							
+							breakClassName={'page-item'}
+							breakLinkClassName={'page-link'}
+							containerClassName={'pagination'}
+							pageClassName={'page-item'}
+							pageLinkClassName={'page-link'}
+							previousClassName={'page-item'}
+							previousLinkClassName={'page-link'}
+							nextClassName={'page-item'}
+							nextLinkClassName={'page-link'}
+							activeClassName={'active'}
+							/>
+				</ul>
 			</div>
 			
 		)
