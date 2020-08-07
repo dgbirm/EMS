@@ -1,82 +1,74 @@
 import React from 'react';
 import H2Service from '../services/H2Service';
 import ReactPaginate from 'react-paginate';
-import '../App.css';
-import { Pagination } from 'react-bootstrap';
 
 class H2Component extends React.Component {
-    constructor(props) {
+	constructor(props) {
 		super(props);
-        this.state = {
-            employees: [],
+		this.state = {
+			employees: [],
 			departments: [],
 			offset: 0,
 			perPage: 2,
 			currentPage: 0
 		};
 		this.handlePageClick =
-		this.handlePageClick.bind(this);
+			this.handlePageClick.bind(this);
 	}
 
 	componentDidMount() {
-		const EmpDbName='employees';
-		const perPage= this.state.perPage;
-		const currentPage= this.state.currentPage;
+		const EmpDbName = 'employees';
+		const perPage = this.state.perPage;
+		const currentPage = this.state.currentPage;
 
 		H2Service.getRequest(EmpDbName, perPage, currentPage)
-		.then((response) => {
-		
-			const data = response.data;
-			// const slice = data.slice(this.state.offset,
-			// 	data.pageable.offset +this.state.perPage);
-			this.setState({
-				employees: data.content,
-				pageCount: Math.ceil(data.totalElements / this.state.perPage)
-			})
-		});
+			.then((response) => {
+				const data = response.data;
+				this.setState({
+					employees: data.content,
+					pageCount: Math.ceil(data.totalElements / this.state.perPage)
+				})
+			});
 
 		H2Service.getDepartments().then((response) => {
-        	this.setState({ departments: response.data});
-        })
+			this.setState({ departments: response.data });
+		})
 	}
 
 	render() {
 		return (
 			<div>
-				<h1 className = "text-center">Employee List</h1>
-				<EmployeeList employees={this.state.employees}/>
+				<h1 className="text-center">Employee List</h1>
+				<EmployeeList employees={this.state.employees} />
 
 				{/* <h1 className = "text-center">Department List</h1>
 				<DepartmentList departments={this.state.departments}/> */}
-				<ul className = "pagination">
-					<ReactPaginate
-							previousLabel={'previous'}
-							nextLabel={'next'}
-							breakLabel={'...'}
-							pageCount={this.state.pageCount}
-							marginPagesDisplayed={2}
-							pageRangeDisplayed={5}
-							onPageChange={this.handlePageClick}
-							subContainerClassName={'pages pagination'}
-							
-							breakClassName={'page-item'}
-							breakLinkClassName={'page-link'}
-							containerClassName={'pagination'}
-							pageClassName={'page-item'}
-							pageLinkClassName={'page-link'}
-							previousClassName={'page-item'}
-							previousLinkClassName={'page-link'}
-							nextClassName={'page-item'}
-							nextLinkClassName={'page-link'}
-							activeClassName={'active'}
-							/>
-				</ul>
+				<ReactPaginate
+					previousLabel={'previous'}
+					nextLabel={'next'}
+					breakLabel={'...'}
+					pageCount={this.state.pageCount}
+					marginPagesDisplayed={2}
+					pageRangeDisplayed={this.state.perPage}
+					onPageChange={this.handlePageClick}
+					subContainerClassName={'pages pagination'}
+
+					breakClassName={'page-item'}
+					breakLinkClassName={'page-link'}
+					containerClassName={'pagination'}
+					pageClassName={'page-item'}
+					pageLinkClassName={'page-link'}
+					previousClassName={'page-item'}
+					previousLinkClassName={'page-link'}
+					nextClassName={'page-item'}
+					nextLinkClassName={'page-link'}
+					activeClassName={'active'}
+				/>
 			</div>
-			
 		)
 	}
 
-	///// handlePageClick ///////////////////////////
+///// handlePageClick ///////////////////////////
 	handlePageClick = (e) => {
 		const selectedPage = e.selected;
 		const offset = selectedPage * this.state.perPage;
@@ -92,21 +84,20 @@ class H2Component extends React.Component {
 }
 
 ///// EmployeeList //////////////////////////////
-
-class EmployeeList extends React.Component{
+class EmployeeList extends React.Component {
 	render() {
 		const renderEmployees = this.props.employees.map(e =>
-			<Employee key={e.EMP_ID} employee = {e}/>
-			);
+			<Employee key={e.EMP_ID} employee={e} />
+		);
 		return (
-			<table className = "table table-striped">
+			<table className="table table-striped">
 				<thead>
 					<tr>
-                        <th>ID</th>
+						<th>ID</th>
 						<th>Full Name</th>
 						<th>Department ID</th>
 						<th>Salary</th>
-                        <th>Job Title</th>
+						<th>Job Title</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -118,16 +109,16 @@ class EmployeeList extends React.Component{
 }
 
 ///// DepartmentList ////////////////////////////
-class DepartmentList extends React.Component{
+class DepartmentList extends React.Component {
 	render() {
 		const renderDepartments = this.props.departments.map(d =>
-			<Department key={d.dep_ID} department={d}/>
+			<Department key={d.dep_ID} department={d} />
 		);
 		return (
-			<table className = "table table-striped">
+			<table className="table table-striped">
 				<thead>
 					<tr>
-                        <th>ID</th>
+						<th>ID</th>
 						<th>Name</th>
 						<th>Head ID</th>
 					</tr>
@@ -141,33 +132,31 @@ class DepartmentList extends React.Component{
 }
 
 ///// Employee //////////////////////////////////
-
-class Employee extends React.Component{
+class Employee extends React.Component {
 	render() {
 		return (
 			<tr>
 				<td>{this.props.employee.empID}</td>
 				<td>{this.props.employee.fullName}</td>
 				<td>{this.props.employee.dep}</td>
-                <td>{this.props.employee.yearlySalary}</td>
-                <td>{this.props.employee.jobTitle}</td>
+				<td>{this.props.employee.yearlySalary}</td>
+				<td>{this.props.employee.jobTitle}</td>
 			</tr>
 		)
 	}
 }
 
 ///// Department ////////////////////////////////
-
-class Department extends React.Component{
-    render() {
-        return (
-            <tr>
-                <td>{this.props.department.dep_ID}</td>
-                <td>{this.props.department.depName}</td>
-                <td>{this.props.department.depHead}</td>
-            </tr>
-        )
-    }
+class Department extends React.Component {
+	render() {
+		return (
+			<tr>
+				<td>{this.props.department.dep_ID}</td>
+				<td>{this.props.department.depName}</td>
+				<td>{this.props.department.depHead}</td>
+			</tr>
+		)
+	}
 }
 
 export default H2Component

@@ -15,9 +15,19 @@ class H2Service {
         return axios.get(DEP_REST_API_URL);
     }
     getRequest(dbName, perPage, currentPage){
-
         const queryURL = `${HOST_NAME}${ROOT}/${dbName}?page=${currentPage}&size=${perPage}`;
         return axios.get(queryURL);
+    }
+
+    async onCreate(dbName, newEmployee) {
+        const queryURL = `${HOST_NAME}${ROOT}/${dbName}`;
+        try {
+            const response = await axios.post(queryURL, newEmployee);
+            console.log(response);
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
 }
 

@@ -3,14 +3,18 @@
  */
 package com.dannyB.EMS.controller;
 
-import java.util.List;
+import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.dannyB.EMS.model.Department;
 import com.dannyB.EMS.model.Employee;
@@ -36,18 +40,27 @@ public class EmsController {
 	private DepartmentRepository depRepo;
 	
 	@RequestMapping(value = "/") //flag index to support root
-	public String index() {
+	private String index() {
 		return "index";
 	}
 	
 	@GetMapping("api/employees")
-	public Iterable<Employee> getEmps(Pageable pg) {
+	private Iterable<Employee> getAllEmps(Pageable pg) {
         return this.empRepo.findAll(pg);
     }
 	
 	@GetMapping("api/departments")
-	public Iterable<Department> getDeps() {
+	private Iterable<Department> getAllDeps() {
         return this.depRepo.findAll();
     }
+	
+	@PostMapping("api/employees")
+	private ResponseEntity<?> createEmp(@RequestBody Employee e) {
+		Employee createdEmployee = new Employee(
+				e.getFullName(),e.getDep(),e.getJobTitle(), e.getYearlySalary());
+		this.empRepo.saveAndFlush(createdEmployee);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdEmployee.getEmpID()).toUri();
+		return ResponseEntity.created(location).build();
+	}
 	
 }
