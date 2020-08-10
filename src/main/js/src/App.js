@@ -2,16 +2,20 @@
 import React from 'react';
 import './App.css';
 
-import H2Component from './components/H2Component';
-import CreateDialog from './components/CreateDialog';
+import CreateEmployee from './components/CreateEmployee';
+import EmployeeTable from './components/EmployeeTable';
+import DepartmentTable from './components/DepartmentTable';
+import CreateDepartment from './components/CreateDepartment';
 
 ///// App ///////////////////////////////////////
 
 function App() {
 	return (
 	  <div className="App">
-		  <H2Component />
-		  <CreateDialog />
+		  <EmployeeTable />
+		  <CreateEmployee />
+		  <DepartmentTable />
+		  <CreateDepartment />
 	  </div>
 	  );
   }

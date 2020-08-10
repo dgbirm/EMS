@@ -1,12 +1,12 @@
 import React from 'react';
 import H2Service from '../services/H2Service';
 import ReactPaginate from 'react-paginate';
+import InputService from '../services/InputService';
 
-class H2Component extends React.Component {
+class DepartmentTable extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			employees: [],
 			departments: [],
 			offset: 0,
 			perPage: 2,
@@ -17,29 +17,25 @@ class H2Component extends React.Component {
 	}
 
 	componentDidMount() {
-		const EmpDbName = 'employees';
+		const dbName = 'departments';
 		const perPage = this.state.perPage;
 		const currentPage = this.state.currentPage;
 
-		H2Service.getRequest(EmpDbName, perPage, currentPage)
+		H2Service.getRequest(dbName, perPage, currentPage)
 			.then((response) => {
 				const data = response.data;
 				this.setState({
-					employees: data.content,
+					departments: data.content,
 					pageCount: Math.ceil(data.totalElements / this.state.perPage)
 				})
 			});
-
-		H2Service.getDepartments().then((response) => {
-			this.setState({ departments: response.data });
-		})
 	}
 
 	render() {
 		return (
 			<div>
-				<h1 className="text-center">Employee List</h1>
-				<EmployeeList employees={this.state.employees} />
+				<h1 className="text-center">Department List</h1>
+				<DepartmentList departments={this.state.departments} />
 
 				{/* <h1 className = "text-center">Department List</h1>
 				<DepartmentList departments={this.state.departments}/> */}
@@ -68,7 +64,7 @@ class H2Component extends React.Component {
 		)
 	}
 
-///// handlePageClick ///////////////////////////
+	///// handlePageClick ///////////////////////////
 	handlePageClick = (e) => {
 		const selectedPage = e.selected;
 		const offset = selectedPage * this.state.perPage;
@@ -84,35 +80,10 @@ class H2Component extends React.Component {
 }
 
 ///// EmployeeList //////////////////////////////
-class EmployeeList extends React.Component {
-	render() {
-		const renderEmployees = this.props.employees.map(e =>
-			<Employee key={e.EMP_ID} employee={e} />
-		);
-		return (
-			<table className="table table-striped">
-				<thead>
-					<tr>
-						<th>ID</th>
-						<th>Full Name</th>
-						<th>Department ID</th>
-						<th>Salary</th>
-						<th>Job Title</th>
-					</tr>
-				</thead>
-				<tbody>
-					{renderEmployees}
-				</tbody>
-			</table>
-		)
-	}
-}
-
-///// DepartmentList ////////////////////////////
 class DepartmentList extends React.Component {
 	render() {
 		const renderDepartments = this.props.departments.map(d =>
-			<Department key={d.dep_ID} department={d} />
+			<Department key={d.DEP_ID} department={d} />
 		);
 		return (
 			<table className="table table-striped">
@@ -120,28 +91,13 @@ class DepartmentList extends React.Component {
 					<tr>
 						<th>ID</th>
 						<th>Name</th>
-						<th>Head ID</th>
+						<th>Head</th>
 					</tr>
 				</thead>
 				<tbody>
 					{renderDepartments}
 				</tbody>
 			</table>
-		)
-	}
-}
-
-///// Employee //////////////////////////////////
-class Employee extends React.Component {
-	render() {
-		return (
-			<tr>
-				<td>{this.props.employee.empID}</td>
-				<td>{this.props.employee.fullName}</td>
-				<td>{this.props.employee.dep}</td>
-				<td>{this.props.employee.yearlySalary}</td>
-				<td>{this.props.employee.jobTitle}</td>
-			</tr>
 		)
 	}
 }
@@ -159,4 +115,4 @@ class Department extends React.Component {
 	}
 }
 
-export default H2Component
+export default DepartmentTable;

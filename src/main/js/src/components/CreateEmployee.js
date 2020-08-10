@@ -2,35 +2,31 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import H2Service from '../services/H2Service';
 
-class CreateDialog extends React.Component {
+class CreateEmployee extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.attributes = [
-			'fullName',
-			'dep',
-			'jobTitle',
-			'yearlySalary'
-		];
+		this.attributes = {
+			'fullName': 'Full Name',
+			'dep': 'Department ID',
+			'jobTitle': 'Job Title',
+			'yearlySalary': 'Salary'
+		};
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.onCreate = H2Service.onCreate.bind(this);
-	}
-
-	componentDidMount() {
-		
 	}
 
 	handleSubmit(e) {
 		e.preventDefault(); //stops the event from bubbling further up the hierarchy
 		const newEntry = {};
-		const EmpDbName = 'employees';
-		this.attributes.forEach(attribute => {
+		const DbName = 'employees';
+		Object.keys(this.attributes).forEach(attribute => {
 			newEntry[attribute] = ReactDOM.findDOMNode(this.refs[attribute]).value.trim();
 		});
-		this.onCreate(EmpDbName,newEntry);
+		this.onCreate(DbName,newEntry);
 
 		// clear out the dialog inputs
-		this.attributes.forEach(attribute => {
+		Object.keys(this.attributes).forEach(attribute => {
 			ReactDOM.findDOMNode(this.refs[attribute]).value = '';
 		});
 
@@ -39,21 +35,22 @@ class CreateDialog extends React.Component {
 	}
 
 	render() {
-		const inputs = this.attributes.map(attribute =>
+
+		const inputs = Object.keys(this.attributes).map(attribute=>
 			<p key={attribute}>
-				<input type="text" placeholder={attribute} ref={attribute} className="field"/>
+				<input type="text" placeholder={this.attributes[attribute]} ref={attribute} className="field"/>
 			</p>
 		);
 
 		return (
 			<div>
-				<a href="#createEmployee">Create</a>
+				<a href="#CreateEmployee">Create Employee</a>
 
-				<div id="createEmployee" className="modalDialog">
+				<div id="CreateEmployee" className="modalDialog">
 					<div>
-						<a href="#" title="Close" className="close">X</a>
+						<a href="#" title="Close" className="close">[X]</a>
 
-						<h2>Create new employee</h2>
+						<h2>Create New Employee</h2>
 
 						<form>
 							{inputs}
@@ -66,4 +63,4 @@ class CreateDialog extends React.Component {
 	}
 }
 
-export default CreateDialog;
+export default CreateEmployee;

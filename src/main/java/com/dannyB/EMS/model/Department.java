@@ -26,7 +26,7 @@ import java.util.Objects;
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @Table(name="department")
-public abstract class Department implements Serializable {
+public class Department implements Serializable {
 	
 	private static final long serialVersionUID = -6431775210848340538L;
 	private @Id String DEP_ID;

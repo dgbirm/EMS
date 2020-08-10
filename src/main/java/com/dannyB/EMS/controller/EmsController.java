@@ -50,8 +50,8 @@ public class EmsController {
     }
 	
 	@GetMapping("api/departments")
-	private Iterable<Department> getAllDeps() {
-        return this.depRepo.findAll();
+	private Iterable<Department> getAllDeps(Pageable pg) {
+        return this.depRepo.findAll(pg);
     }
 	
 	@PostMapping("api/employees")
@@ -60,6 +60,14 @@ public class EmsController {
 				e.getFullName(),e.getDep(),e.getJobTitle(), e.getYearlySalary());
 		this.empRepo.saveAndFlush(createdEmployee);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdEmployee.getEmpID()).toUri();
+		return ResponseEntity.created(location).build();
+	}
+	
+	@PostMapping("api/departments")
+	private ResponseEntity<?> createDep(@RequestBody Department d) {
+		Department createdDepartment = new Department(d.getDepName(), d.getDepHead());
+		this.depRepo.saveAndFlush(createdDepartment);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdDepartment.getDEP_ID()).toUri();
 		return ResponseEntity.created(location).build();
 	}
 	
