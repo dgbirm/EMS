@@ -1,4 +1,3 @@
-
 import React from 'react';
 import './App.css';
 import{ createBrowserHistory } from 'history';
@@ -22,10 +21,10 @@ export default class App extends React.Component {
 					<div>
 						<NavBar />
 						<Switch>
-							<Route exactly component={EmployeeTable} pattern="/EmployeeTable" />
-							<Route exactly component={CreateEmployee} pattern="/CreateEmployee" />
-							<Route exactly component={DepartmentTable} pattern="/DepartmentTable" />
-							<Route exactly component={CreateDepartment} pattern="/CreateDepartment" />
+							<Route exactly component={EmployeeTable} path="/EmployeeTable" />
+							<Route exactly component={CreateEmployee} path="/CreateEmployee" />
+							<Route exactly component={DepartmentTable} path="/DepartmentTable" />
+							<Route exactly component={CreateDepartment} path="/CreateDepartment" />
 							{/* <Route component={Page404} /> */}
 						</Switch>
 					</div>

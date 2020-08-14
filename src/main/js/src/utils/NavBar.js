@@ -22,7 +22,7 @@ export default class NavBar extends React.Component {
                     </Nav>
                     <Form inline>
                         <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                        <Button variant="outline-info">Search</Button>
+                        <Button variant="outline-secondary">Search</Button>
                     </Form>
                 </Navbar.Collapse>
             </Navbar>
