@@ -2,11 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import H2Service from '../services/H2Service';
 import { connect } from 'react-redux'
+import { Form } from 'react-bootstrap';
 
 class CreateEmployee extends React.Component {
 
 	constructor(props) {
 		super(props);
+		this.state = {
+			departmentIDs: []
+		};
 		this.attributes = {
 			'fullName': 'Full Name',
 			'dep': 'Department ID',
@@ -17,6 +21,19 @@ class CreateEmployee extends React.Component {
 		this.onCreate = H2Service.onCreate.bind(this);
 	}
 
+	componentDidMount() {
+		H2Service.getDepartments().then((response) => {
+			const data = response.data.content;
+			var depIDs = [];
+			for (const d in data) {
+				depIDs.push(data[d].dep_ID);
+			}
+			this.setState({
+				departmentIDs: depIDs
+			})
+		})
+	}
+
 	handleSubmit(e) {
 		e.preventDefault(); //stops the event from bubbling further up the hierarchy
 		const newEntry = {};
@@ -24,7 +41,7 @@ class CreateEmployee extends React.Component {
 		Object.keys(this.attributes).forEach(attribute => {
 			newEntry[attribute] = ReactDOM.findDOMNode(this.refs[attribute]).value.trim();
 		});
-		this.onCreate(DbName,newEntry);
+		this.onCreate(DbName, newEntry);
 
 		// clear out the dialog inputs
 		Object.keys(this.attributes).forEach(attribute => {
@@ -35,30 +52,51 @@ class CreateEmployee extends React.Component {
 		window.location = "#";
 	}
 
-	render() {
+	checkDepType(attribute) {
+		if ('dep' === attribute.toString()) {
+			return {
+				as: "select"
+			};
+		}
+		else {
+			return {
+				as: "input"
+			};
+		}
+	}
 
-		const inputs = Object.keys(this.attributes).map(attribute=>
-			<p key={attribute}>
-				<input type="text" placeholder={this.attributes[attribute]} ref={attribute} className="field"/>
-			</p>
+	depOptions(attribute) {
+		if ('dep' === attribute.toString()) {
+			return this.state.departmentIDs.map(depID =>
+				<option>{depID}</option>
+			);
+		}
+		else {
+			return null;
+		}
+	}
+
+	render() {
+		const inputs = Object.keys(this.attributes).map(attribute =>
+				<Form.Group controlId={"formCreateEmployee.".concat(
+					attribute)} >
+					<Form.Label>{this.attributes[attribute]}</Form.Label>
+					<Form.Control ref={attribute} as={this.checkDepType(attribute).as} type="text">
+						{this.depOptions(attribute)}
+					</Form.Control>
+				</Form.Group>
 		);
 
 		return (
-			<div>
-				<a href="#CreateEmployee">Create Employee</a>
+			<div id="CreateEmployee" className="modalDialog">
+				<a href="#" title="Close" className="close">[X]</a>
 
-				<div id="CreateEmployee" className="modalDialog">
-					<div>
-						<a href="#" title="Close" className="close">[X]</a>
+				<h2>Create New Employee</h2>
 
-						<h2>Create New Employee</h2>
-
-						<form>
-							{inputs}
-							<button onClick={this.handleSubmit}>Create</button>
-						</form>
-					</div>
-				</div>
+				<Form>
+					{inputs}
+					<button onClick={this.handleSubmit}>Create</button>
+				</Form>
 			</div>
 		)
 	}

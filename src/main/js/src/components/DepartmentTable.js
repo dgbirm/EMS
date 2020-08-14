@@ -84,7 +84,7 @@ class DepartmentTable extends React.Component {
 class DepartmentList extends React.Component {
 	render() {
 		const renderDepartments = this.props.departments.map(d =>
-			<Department key={d.DEP_ID} department={d} />
+			<Department key={d.dep_ID} department={d} />
 		);
 		return (
 			<table className="table table-striped">

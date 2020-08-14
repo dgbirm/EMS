@@ -84,8 +84,9 @@ class EmployeeTable extends React.Component {
 class EmployeeList extends React.Component {
 	render() {
 		const renderEmployees = this.props.employees.map(e =>
-			<Employee key={e.EMP_ID} employee={e} />
+			<Employee key={e.empID} employee={e} />
 		);
+		
 		return (
 			<table className="table table-striped">
 				<thead>
