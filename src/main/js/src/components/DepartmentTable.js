@@ -1,7 +1,8 @@
 import React from 'react';
 import H2Service from '../services/H2Service';
 import ReactPaginate from 'react-paginate';
-import InputService from '../services/InputService';
+import { connect } from 'react-redux'
+
 
 class DepartmentTable extends React.Component {
 	constructor(props) {
@@ -115,4 +116,8 @@ class Department extends React.Component {
 	}
 }
 
-export default DepartmentTable;
+const mapStateToProps = (state) => ({
+	errors: state.errors
+});
+
+export default connect(mapStateToProps)(DepartmentTable);

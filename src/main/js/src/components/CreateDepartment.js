@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import H2Service from '../services/H2Service';
+import { connect } from 'react-redux'
 
 class CreateDepartment extends React.Component {
 
@@ -61,4 +62,10 @@ class CreateDepartment extends React.Component {
 	}
 }
 
-export default CreateDepartment;
+////// Page Connection
+
+const mapStateToProps = (state) => ({
+	errors: state.errors
+});
+
+export default connect(mapStateToProps)(CreateDepartment);

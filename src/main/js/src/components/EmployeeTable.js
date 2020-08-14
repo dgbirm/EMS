@@ -2,6 +2,7 @@ import React from 'react';
 import H2Service from '../services/H2Service';
 import ReactPaginate from 'react-paginate';
 import InputService from '../services/InputService';
+import { connect } from 'react-redux'
 
 class EmployeeTable extends React.Component {
 	constructor(props) {
@@ -119,4 +120,8 @@ class Employee extends React.Component {
 	}
 }
 
-export default EmployeeTable
+const mapStateToProps = (state) => ({
+	errors: state.errors
+});
+
+export default connect(mapStateToProps)(EmployeeTable);

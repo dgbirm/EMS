@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import H2Service from '../services/H2Service';
+import { connect } from 'react-redux'
 
 class CreateEmployee extends React.Component {
 
@@ -63,4 +64,8 @@ class CreateEmployee extends React.Component {
 	}
 }
 
-export default CreateEmployee;
+const mapStateToProps = (state) => ({
+	errors: state.errors
+});
+
+export default connect(mapStateToProps)(CreateEmployee);
