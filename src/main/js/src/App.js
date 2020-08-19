@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import{ createBrowserHistory } from 'history';
-import { Router, Link, Switch, Route } from 'react-router-dom';
+import { Router, Switch, Route } from 'react-router-dom';
 
 import NavBar from './utils/NavBar'
 import EmployeeTable from './components/EmployeeTable';

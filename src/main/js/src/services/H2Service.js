@@ -16,6 +16,7 @@ class H2Service {
     }
     getRequest(dbName, perPage, currentPage){
         const queryURL = `${HOST_NAME}${ROOT}/${dbName}?page=${currentPage}&size=${perPage}`;
+        console.log(queryURL)
         return axios.get(queryURL);
     }
 

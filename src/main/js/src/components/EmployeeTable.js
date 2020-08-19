@@ -1,7 +1,6 @@
 import React from 'react';
 import H2Service from '../services/H2Service';
 import ReactPaginate from 'react-paginate';
-import InputService from '../services/InputService';
 import { connect } from 'react-redux'
 
 class EmployeeTable extends React.Component {
@@ -21,6 +20,8 @@ class EmployeeTable extends React.Component {
 		const dbName = 'employees';
 		const perPage = this.state.perPage;
 		const currentPage = this.state.currentPage;
+
+		console.log('Emp Table did Map')
 
 		H2Service.getRequest(dbName, perPage, currentPage)
 			.then((response) => {
@@ -65,19 +66,19 @@ class EmployeeTable extends React.Component {
 		)
 	}
 
-	    ///// handlePageClick ///////////////////////////
-		handlePageClick = (e) => {
-			const selectedPage = e.selected;
-			const offset = selectedPage * this.state.perPage;
-	
-			this.setState({
-				currentPage: selectedPage,
-				offset: offset
-			}, () => {
-				this.componentDidMount()
-			});
-	
-		};
+	///// handlePageClick ///////////////////////////
+	handlePageClick = (e) => {
+		const selectedPage = e.selected;
+		const offset = selectedPage * this.state.perPage;
+
+		this.setState({
+			currentPage: selectedPage,
+			offset: offset
+		}, () => {
+			this.componentDidMount()
+		});
+
+	};
 }
 
 ///// EmployeeList //////////////////////////////
@@ -86,7 +87,6 @@ class EmployeeList extends React.Component {
 		const renderEmployees = this.props.employees.map(e =>
 			<Employee key={e.empID} employee={e} />
 		);
-		
 		return (
 			<table className="table table-striped">
 				<thead>

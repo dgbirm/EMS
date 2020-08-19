@@ -10,9 +10,9 @@ export default class NavBar extends React.Component {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
                     <NavDropdown title="Personnel" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="EmployeeTable">See all Personnel</NavDropdown.Item>
+                            <NavDropdown.Item href="/EmployeeTable">See all Personnel</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="CreateEmployee">Add Employee</NavDropdown.Item>
+                            <NavDropdown.Item href="/CreateEmployee">Add Employee</NavDropdown.Item>
                         </NavDropdown>
                         <NavDropdown title="Organization" id="basic-nav-dropdown">
                             <NavDropdown.Item href="/DepartmentTable">Department Overview</NavDropdown.Item>

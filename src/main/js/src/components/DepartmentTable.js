@@ -3,7 +3,6 @@ import H2Service from '../services/H2Service';
 import ReactPaginate from 'react-paginate';
 import { connect } from 'react-redux'
 
-
 class DepartmentTable extends React.Component {
 	constructor(props) {
 		super(props);
@@ -80,7 +79,7 @@ class DepartmentTable extends React.Component {
 	};
 }
 
-///// EmployeeList //////////////////////////////
+///// DepartmentList //////////////////////////////
 class DepartmentList extends React.Component {
 	render() {
 		const renderDepartments = this.props.departments.map(d =>
